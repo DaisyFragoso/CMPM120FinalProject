@@ -1,0 +1,33 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "",
+    "expandedProjectPaths": [
+    ],
+    "fileStates": {
+        "": {
+            "scaleInDock": 0.75,
+            "scaleInEditor": 1
+        }
+    },
+    "last.exportedFilePath": "C:/Users/energ/CMPM 120/CMPM120-Game4B-NathanGonzales/CMPM120FinalProject/assets",
+    "last.imagePath": "C:/Users/energ/CMPM 120/CMPM120-Game4B-NathanGonzales/CMPM120FinalProject/assets",
+    "map.height": 30,
+    "map.lastUsedExportFilter": "JSON map files (*.tmj *.json)",
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 70,
+    "map.tileWidth": 70,
+    "map.width": 130,
+    "openFiles": [
+    ],
+    "project": "Lava Breakout.tiled-project",
+    "recentFiles": [
+    ],
+    "tileset.embedInMap": true,
+    "tileset.tileSize": {
+        "height": 70,
+        "width": 70
+    }
+}
