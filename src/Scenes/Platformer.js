@@ -70,11 +70,11 @@ class Platformer extends Phaser.Scene {
 
             // Only play smoke effect if touching the ground
 
-            if (my.sprite.player.body.blocked.down) {
+           // if (my.sprite.player.body.blocked.down) {
 
-                my.vfx.walking.start();
+           //     my.vfx.walking.start();
 
-            }
+         //   }
 
         } else if(cursors.right.isDown) {
             my.sprite.player.setAccelerationX(this.ACCELERATION);
@@ -88,12 +88,12 @@ class Platformer extends Phaser.Scene {
 
             // Only play smoke effect if touching the ground
 
-            if (my.sprite.player.body.blocked.down) {
+         //   if (my.sprite.player.body.blocked.down) {
 
             //    my.vfx.walking.start();
 
-            }
-            
+         //   }
+           
 
         } else {
             // Set acceleration to 0 and have DRAG take over
