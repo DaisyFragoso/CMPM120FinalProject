@@ -20,9 +20,11 @@ class Platformer extends Phaser.Scene {
 
         //Add a tileset to the map
         this.tileset = this.map.addTilesetImage("kenny_tilemap_packed", "tilemap_tiles");
+        this.mineTileset = this.map.addTilesetImage("kenny_sheet_mine_tilemap_packed","tilemap_mine_tiles");
+        this.iceTileset = this.map.addTilesetImage("kenny_sheet_ice_tilemap_packed","tilemap_ice_tiles");
 
         // Create a layer
-        this.groundLayer = this.map.createLayer("Ground-n-Platforms", this.tileset, 0, 0);
+        this.groundLayer = this.map.createLayer("Ground-n-Platforms", [this.tileset,this.mineTileset,this.iceTileset], 0, 0);
         this.groundLayer.setScale(1.0);
 
         // Make it collidable
