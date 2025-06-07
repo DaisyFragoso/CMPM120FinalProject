@@ -12,6 +12,8 @@ class Platformer extends Phaser.Scene {
         // this.PARTICLE_VELOCITY = 50;
 
          this.SCALE = 1.0;
+
+         this.isRestarting = false;
     }
 
     create(){
@@ -34,6 +36,11 @@ class Platformer extends Phaser.Scene {
         
         this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
 
+        //turn on arcade physics 
+        //this.physics.world.enable(this.coins, Phaser.Physics.Arcade.STATIC_BODY);
+        this.spikeTiles = this.groundLayer.filterTiles(tile => {
+            return tile.properties.spikes == true;
+        });
 
         // set up player avatar
         my.sprite.player = this.physics.add.sprite(game.config.width/8, game.config.height/6, "platformer_characters", "tile_0000.png").setScale(5)
@@ -60,7 +67,13 @@ class Platformer extends Phaser.Scene {
         this.cameras.main.setZoom(0.5);
     }
 
-   update() {
+    isTouchingSpike() {
+        let player = my.sprite.player;
+        let tile = this.groundLayer.getTileAtWorldXY(player.x, player.y, true);
+        return tile && tile.properties.spikes === true;
+    }
+
+    update() {
         if(cursors.left.isDown) {
             my.sprite.player.setAccelerationX(-this.ACCELERATION);
             my.sprite.player.resetFlip();
@@ -107,6 +120,12 @@ class Platformer extends Phaser.Scene {
 
         if(Phaser.Input.Keyboard.JustDown(this.rKey)) {
             this.scene.restart();
+        }
+        if (this.isTouchingSpike() && !this.isRestarting) {
+            this.isRestarting = true; // Prevents repeated triggering
+            this.time.delayedCall(150, () => {  // Delay in ms (e.g. 500ms = 0.5s)
+             this.scene.restart();
+        });
         }
     }
 }
