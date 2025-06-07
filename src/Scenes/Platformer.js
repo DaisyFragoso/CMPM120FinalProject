@@ -65,15 +65,10 @@ class Platformer extends Phaser.Scene {
             my.sprite.player.anims.play('walk', true);
             // TODO: add particle following code here for when player moves to the LEFT
       //      my.vfx.walking.startFollow(my.sprite.player, my.sprite.player.displayWidth/2-10, my.sprite.player.displayHeight/2-5, false);
-
     //    my.vfx.walking.setParticleSpeed(this.PARTICLE_VELOCITY, 0);
-
             // Only play smoke effect if touching the ground
-
            // if (my.sprite.player.body.blocked.down) {
-
            //     my.vfx.walking.start();
-
          //   }
 
         } else if(cursors.right.isDown) {
@@ -83,15 +78,10 @@ class Platformer extends Phaser.Scene {
             // TODO: add particle following code here for when player moves to the RIGHT
 
         //     my.vfx.walking.startFollow(my.sprite.player, my.sprite.player.displayWidth/2-10, my.sprite.player.displayHeight/2-5, false);
-
        //     my.vfx.walking.setParticleSpeed(this.PARTICLE_VELOCITY, 0);
-
             // Only play smoke effect if touching the ground
-
          //   if (my.sprite.player.body.blocked.down) {
-
             //    my.vfx.walking.start();
-
          //   }
            
 
