@@ -5,7 +5,7 @@ class Platformer extends Phaser.Scene {
 
     init(){
 
-         this.ACCELERATION = 500;
+         this.ACCELERATION = 600;
          this.DRAG = 500;    // DRAG < ACCELERATION = icy slide
          this.physics.world.gravity.y = 1500;
          this.JUMP_VELOCITY = -700;
@@ -27,7 +27,9 @@ class Platformer extends Phaser.Scene {
 
         // Create a layer
         this.groundLayer = this.map.createLayer("Ground-n-Platforms", [this.tileset,this.mineTileset,this.iceTileset], 0, 0);
+        this.objectsLayer = this.map.createLayer("Objects-n-Features", [this.tileset,this.mineTileset,this.iceTileset], 0, 0);
         this.groundLayer.setScale(1.0);
+        this.objectsLayer.setScale(1.0);
 
         // Make it collidable
         this.groundLayer.setCollisionByProperty({
@@ -43,7 +45,7 @@ class Platformer extends Phaser.Scene {
         });
 
         // set up player avatar
-        my.sprite.player = this.physics.add.sprite(game.config.width/8, game.config.height/6, "platformer_characters", "tile_0000.png").setScale(5)
+        my.sprite.player = this.physics.add.sprite(250, 1700, "platformer_characters", "tile_0000.png").setScale(5)
         my.sprite.player.setCollideWorldBounds(true);
 
         // Enable collision handling

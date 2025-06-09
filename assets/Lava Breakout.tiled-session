@@ -12,7 +12,7 @@
             "scaleInDock": 0.75,
             "scaleInEditor": 2.88
         },
-        "/Users/daisy/Desktop/CMPM120/L20/ParticlePractice/assets/platformer-level-1.tmx": {
+        "C:/Users/daisy/Desktop/CMPM120/L20/ParticlePractice/assets/platformer-level-1.tmx": {
             "scale": 0.85,
             "selectedLayer": 1,
             "viewCenter": {
@@ -20,10 +20,10 @@
                 "y": 428.235294117647
             }
         },
-        "/Users/daisy/Desktop/CMPM120/L20/ParticlePractice/assets/platformer-level-1.tmx#kenny_tilemap_packed": {
+        "C:/Users/daisy/Desktop/CMPM120/L20/ParticlePractice/assets/platformer-level-1.tmx#kenny_tilemap_packed": {
             "scaleInDock": 1
         },
-        "/Users/daisy/Desktop/CMPM120/Project 3/assets/platformer-level-1.tmx": {
+        "C:/Users/daisy/Desktop/CMPM120/Project 3/assets/platformer-level-1.tmx": {
             "scale": 0.382,
             "selectedLayer": 0,
             "viewCenter": {
@@ -31,8 +31,22 @@
                 "y": 193.71727748691103
             }
         },
-        "/Users/daisy/Desktop/CMPM120/Project 3/assets/platformer-level-1.tmx#kenny_tilemap_packed": {
+        "C:/Users/daisy/Desktop/CMPM120/Project 3/assets/platformer-level-1.tmx#kenny_tilemap_packed": {
             "scaleInDock": 1.7272
+        },
+        "L1.tmx": {
+            "scale": 0.13143406593406592,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 4549.809790560596,
+                "y": 1053.760294302078
+            }
+        },
+        "L1.tmx#tilesheet-packed": {
+            "scaleInDock": 1
+        },
+        "platformer-level-1.tmx#kenny_sheet_mine_tilemap_packed": {
+            "scaleInEditor": 1
         }
     },
     "last.exportedFilePath": "C:/Users/energ/CMPM 120/CMPM120-Game4B-NathanGonzales/CMPM120FinalProject/assets",
@@ -46,9 +60,11 @@
     "openFiles": [
     ],
     "project": "Lava Breakout.tiled-project",
+    "property.type": "bool",
     "recentFiles": [
-        "/Users/daisy/Desktop/CMPM120/Project 3/assets/platformer-level-1.tmx",
-        "/Users/daisy/Desktop/CMPM120/L20/ParticlePractice/assets/platformer-level-1.tmx"
+        "L1.tmx",
+        "C:/Users/daisy/Desktop/CMPM120/Project 3/assets/platformer-level-1.tmx",
+        "C:/Users/daisy/Desktop/CMPM120/L20/ParticlePractice/assets/platformer-level-1.tmx"
     ],
     "tileset.embedInMap": true,
     "tileset.tileSize": {
