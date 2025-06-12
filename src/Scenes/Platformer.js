@@ -216,14 +216,16 @@ class Platformer extends Phaser.Scene {
         return tile && tile.properties.spikes === true;
     }
    
+    // Helper function to call game over
     gameOver(){
         this.isRestarting = true;
-        this.time.delayedCall(500, () => { 
+        this.time.delayedCall(100, () => { 
            // this.sound.play("hurtSound", {volume: 1});
             this.scene.restart();
         });
     }
 
+    // Helper function if player takes damage
     takeDamage(amount) {
         const now = this.time.now;
         if (this.isRestarting || now - this.lastDamagedAt < this.damageCooldown) {
@@ -243,6 +245,7 @@ class Platformer extends Phaser.Scene {
         }
     }
 
+    // Helper functio to update hearts
     updateHearts() {
         this.sound.play("hurtSound", {volume: 1});
         for (let i = 0; i < this.hearts.length; i++) {
@@ -307,11 +310,7 @@ class Platformer extends Phaser.Scene {
             this.takeDamage(1);
         }
         if (Phaser.Geom.Rectangle.ContainsPoint(this.deathZone, my.sprite.player)) {
-          //  this.sound.play("hurtSound", {volume: 1});
-           // this.scene.restart(); // or respawn logic
             this.takeDamage(3);
-          //  this.takeDamage(1);
-          //  this.takeDamage(1);
         }
     }
 }
