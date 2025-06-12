@@ -129,8 +129,6 @@ class Platformer extends Phaser.Scene {
           // set up Phaser-provided cursor key input
         cursors = this.input.keyboard.createCursorKeys();
 
-        this.rKey = this.input.keyboard.addKey('R');
-
           // debug key listener (assigned to D key)
         this.input.keyboard.on('keydown-D', () => {
             this.physics.world.drawDebug = this.physics.world.drawDebug ? false : true
@@ -218,10 +216,6 @@ class Platformer extends Phaser.Scene {
         if(my.sprite.player.body.blocked.down && Phaser.Input.Keyboard.JustDown(cursors.up)) {
             this.sound.play("jumpSound", {volume: 1})
             my.sprite.player.body.setVelocityY(this.JUMP_VELOCITY);
-        }
-
-        if(Phaser.Input.Keyboard.JustDown(this.rKey)) {
-            this.scene.restart();
         }
 
         // Id player gets hurt from spikes or falling

@@ -21,7 +21,7 @@ let config = {
     },
     width: 1000,
     height: 700,
-    scene: [Load, Platformer, WinScene]
+    scene: [Load, Platformer, WinScene, TitleScene]
 }
 
 var cursors;

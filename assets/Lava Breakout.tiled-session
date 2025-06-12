@@ -3,14 +3,14 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "platformer-level-1.tmx",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
         "": {
             "scaleInDock": 0.75,
-            "scaleInEditor": 2.88
+            "scaleInEditor": 1
         },
         "C:/Users/daisy/Desktop/CMPM120/L20/ParticlePractice/assets/platformer-level-1.tmx": {
             "scale": 0.85,
@@ -35,11 +35,14 @@
             "scaleInDock": 1.7272
         },
         "C:/Users/energ/CMPM 120/CMPM120-Game3b-NathanGonzales/assets/L1 Map.tmx": {
+            "expandedObjectLayers": [
+                5
+            ],
             "scale": 3,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 255.16666666666666,
-                "y": 191.66666666666663
+                "x": 503.66666666666663,
+                "y": 160.16666666666666
             }
         },
         "C:/Users/energ/CMPM 120/CMPM120-Game3b-NathanGonzales/assets/L1 Map.tmx#monochrome_tilemap_packed": {
@@ -63,14 +66,15 @@
         },
         "platformer-level-1.tmx": {
             "expandedObjectLayers": [
-                3,
-                4
+                5,
+                4,
+                3
             ],
-            "scale": 0.125,
-            "selectedLayer": 4,
+            "scale": 0.33,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 4700,
-                "y": 2688
+                "x": 4200,
+                "y": 1398.4848484848485
             }
         },
         "platformer-level-1.tmx#kenny_sheet_ice_tilemap_packed": {
@@ -102,8 +106,8 @@
     "project": "Lava Breakout.tiled-project",
     "property.type": "bool",
     "recentFiles": [
-        "platformer-level-1.tmx",
         "C:/Users/energ/CMPM 120/CMPM120-Game3b-NathanGonzales/assets/L1 Map.tmx",
+        "platformer-level-1.tmx",
         "L1.tmx",
         "C:/Users/daisy/Desktop/CMPM120/Project 3/assets/platformer-level-1.tmx",
         "C:/Users/daisy/Desktop/CMPM120/L20/ParticlePractice/assets/platformer-level-1.tmx"

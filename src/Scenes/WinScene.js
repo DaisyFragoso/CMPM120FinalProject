@@ -6,22 +6,31 @@ class WinScene extends Phaser.Scene {
     }
 
     preload(){
-            this.load.image('theEnd', 'theEnd.png'); // Replace with your image path
-            console.log("TheEndScene loaded");
+            // Loading image
+            this.load.image('theEnd', 'assets/theEnd.png'); 
 
     }
 
     create() {
-        this.sound.stopAll();  // stops all currently playing sounds
+        // Stops all currently playing sounds
+        this.sound.stopAll();
 
-        console.log("TheEndScene loaded");
-
-        this.add.image(this.cameras.main.centerX, this.cameras.main.centerY, 'theEnd')
+        // Display image
+        this.add.image(this.cameras.main.width / 2, this.cameras.main.height / 2, 'theEnd')
             .setOrigin(0.5)
-            .setScale(3); //size of img
+            .setScale(2); //size of img
+        
+        // Display text to show what key to press to play again
+        this.myText1 = this.add.text(this.cameras.main.width / 2, 550, 'Press R to go back to title screen!', {
+            fontSize: '50px',
+            fill: '#ffffff',
+            fontFamily: 'Arial'
+        });
+        this.myText1.setOrigin(0.5, 0.5);
 
+        // Key to start the game over
         this.input.keyboard.once('keydown-R', () => {
-            this.scene.start("platformerScene");
+            this.scene.start("titleScene");
         });
 
     }
