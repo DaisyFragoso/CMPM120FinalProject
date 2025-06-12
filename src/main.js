@@ -19,9 +19,9 @@ let config = {
             }
         }
     },
-    width: 1440,
-    height: 1280,
-    scene: [Load, Platformer]
+    width: 1000,
+    height: 700,
+    scene: [Load, Platformer, WinScene]
 }
 
 var cursors;

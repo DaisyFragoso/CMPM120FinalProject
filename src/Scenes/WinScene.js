@@ -1,4 +1,4 @@
-class winScene extends Phaser.Scene {
+class WinScene extends Phaser.Scene {
     constructor() {
         super('endScene');
         this.imageX = 400;
@@ -12,6 +12,8 @@ class winScene extends Phaser.Scene {
     }
 
     create() {
+        this.sound.stopAll();  // stops all currently playing sounds
+
         console.log("TheEndScene loaded");
 
         this.add.image(this.cameras.main.centerX, this.cameras.main.centerY, 'theEnd')

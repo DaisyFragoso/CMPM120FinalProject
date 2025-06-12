@@ -14,11 +14,19 @@ class Load extends Phaser.Scene {
         this.load.image("tilemap_mine_tiles","sheet.png");
         this.load.image("tilemap_ice_tiles","sheet_ice.png");
 
+        // 3. Load audio
+        this.load.audio("walk1", "footstep_snow_000.ogg");
+        this.load.audio("walk2", "footstep_snow_001.ogg");
+        this.load.audio("walk3", "footstep_snow_002.ogg");
+        this.load.audio("walk4", "footstep_snow_003.ogg");
+        this.load.audio("walk5", "footstep_snow_004.ogg");
+        this.load.audio("jumpSound", "sfx_jump.ogg");
+        this.load.audio("hurtSound", "sfx_hurt.ogg")
 
-        // 3.Load tilemap information
+        // 4.Load tilemap information
         this.load.tilemapTiledJSON("platformer-level-1", "platformer-level-1.tmj");   // Tilemap in JSON
 
-        // 4.Load the tilemap as a spritesheet
+        // 5.Load the tilemap as a spritesheet
         this.load.spritesheet("tilemap_sheet", "tilesheet-packed.png", {
             frameWidth: 70,
             frameHeight: 70
@@ -32,9 +40,10 @@ class Load extends Phaser.Scene {
             frameHeight: 70
         });
 
-        // 5.load sound 
-        //this.load.audio('coinSound', 'zap1.ogg');
+        // 6. Loading background
+        this.load.image('icyBg', 'icebg.png');
 
+        
         // Oooh, fancy. A multi atlas is a texture atlas which has the textures spread
         // across multiple png files, so as to keep their size small for use with
         // lower resource devices (like mobile phones).
@@ -44,6 +53,8 @@ class Load extends Phaser.Scene {
         //this.load.multiatlas("kenny-particles", "kenny-particles.json");
     }
     create() {
+
+        // Affing walking animations
         this.anims.create({
             key: 'walk',
             frames: this.anims.generateFrameNames('platformer_characters', {

@@ -17,8 +17,15 @@ class Platformer extends Phaser.Scene {
     }
 
     create(){
-        //create new tilemap game object: 16,  16 pixel ,  tiles wide, tiles tall
-        this.map = this.add.tilemap("platformer-level-1", 70, 70, 130, 40);
+
+
+         //create new tilemap game object: 16,  16 pixel , 120 tiles wide, 40 tiles tall
+        this.map = this.add.tilemap("platformer-level-1", 70, 70, 120, 40);
+
+        // Adding background
+        const bg = this.add.image(0, 0, 'icyBg').setOrigin(0, 0);
+        bg.setDisplaySize(this.map.widthInPixels, this.map.heightInPixels); // match to tilemap
+        bg.setScrollFactor(1); // background moves with world
 
         //Add a tileset to the map
         this.tileset = this.map.addTilesetImage("kenny_tilemap_packed", "tilemap_tiles");
@@ -35,18 +42,86 @@ class Platformer extends Phaser.Scene {
         this.groundLayer.setCollisionByProperty({
             collides: true
         });
-        
+
+
+        // Adding walking audio
+        this.isWalkingSoundPlaying = false;
+        this.currentSoundIndex = 0;
+        this.walkingSound = null;
+        this.walkingSoundComplete = null;
+
+       this.walkSounds = [
+            this.sound.add('walk1', { volume: 0.4 }),
+            this.sound.add('walk2', { volume: 0.4 }),
+            this.sound.add('walk3', { volume: 0.4 }),
+            this.sound.add('walk4', { volume: 0.4 }),
+            this.sound.add('walk5', { volume: 0.4 })
+        ];
+
+        this.playNextSound = () => {
+            if (!this.isWalkingSoundPlaying) return;
+
+            
+            if (this.walkingSound && this.walkingSoundCompleteHandler) {
+                this.walkingSound.off('complete', this.walkingSoundCompleteHandler);
+            }
+
+            this.walkingSound = this.walkSounds[this.currentSoundIndex];
+            this.walkingSound.play({ rate: 1.5 });
+
+            this.walkingSoundCompleteHandler = () => {
+                if (this.isWalkingSoundPlaying) {
+                    this.currentSoundIndex = (this.currentSoundIndex + 1) % this.walkSounds.length;
+                    this.playNextSound();
+                }
+            };
+
+            this.walkingSound.once('complete', this.walkingSoundCompleteHandler);
+        };
+
+        // Ensure player spawns in right area
         this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
 
+        // Finding torches in the "Torches" Layer
+        this.coins = this.map.createFromObjects("Torches", {
+            name: "Torch",
+            key: "tilemap_sheet",
+            frame: 1
+        });
+
+        // Creating animation for torches
+        this.anims.create({
+            key: 'torchAnim', // Animation key
+            frames: [
+                    { key: 'tilemap_sheet', frame: 152 },
+                    { key: 'tilemap_sheet', frame: 153 },
+                ],
+            frameRate: 6,  // Higher is faster
+            repeat: -1      // Loop the animation indefinitely
+        });
+
+        // Playing animation for Torches
+        this.anims.play('torchAnim', this.coins);
+
+        // Finding Exit Sign in the "Exit" Layer
+        this.exitSign = this.map.createFromObjects("Exit", {
+            name: "Exit Sign",
+            key: "tilemap_sheet",
+            frame: 114
+        });
+
         //turn on arcade physics 
-        //this.physics.world.enable(this.coins, Phaser.Physics.Arcade.STATIC_BODY);
         this.spikeTiles = this.groundLayer.filterTiles(tile => {
             return tile.properties.spikes == true;
         });
+        this.physics.world.enable(this.exitSign, Phaser.Physics.Arcade.STATIC_BODY);
 
         // set up player avatar
         my.sprite.player = this.physics.add.sprite(250, 1700, "platformer_characters", "tile_0000.png").setScale(5)
         my.sprite.player.setCollideWorldBounds(true);
+
+        // Cap x and y velocities
+        my.sprite.player.setMaxVelocity(600, 900);  // cap X and Y velocities
 
         // Enable collision handling
         this.physics.add.collider(my.sprite.player, this.groundLayer);
@@ -67,8 +142,32 @@ class Platformer extends Phaser.Scene {
         this.cameras.main.startFollow(my.sprite.player, true, 0.25, 0.25); // (target, [,roundPixels][,lerpX][,lerpY])
         this.cameras.main.setDeadzone(50, 50);
         this.cameras.main.setZoom(0.5);
+
+        // Death Zone setup
+        const deathRectangle = this.map.getObjectLayer('DeathZone').objects[0];
+        // Create a Phaser rectangle from it
+        this.deathZone = new Phaser.Geom.Rectangle(
+            deathRectangle.x, 
+            deathRectangle.y, 
+            deathRectangle.width, 
+            deathRectangle.height
+        );
+
+        // Ends level
+        this.physics.add.overlap(my.sprite.player, this.exitSign, (player, exitSign) => {
+            if (this.isWalkingSoundPlaying) {
+                this.isWalkingSoundPlaying = false;
+
+                // Stop all walking sounds
+                this.walkSounds.forEach(sound => sound.stop());
+
+            }
+            this.scene.start("endScene");
+        });
+
     }
 
+    // Helper function if player is touching spikes
     isTouchingSpike() {
         let player = my.sprite.player;
         let tile = this.groundLayer.getTileAtWorldXY(player.x, player.y, true);
@@ -76,39 +175,39 @@ class Platformer extends Phaser.Scene {
     }
 
     update() {
+        // Player Movement 
         if(cursors.left.isDown) {
             my.sprite.player.setAccelerationX(-this.ACCELERATION);
             my.sprite.player.resetFlip();
             my.sprite.player.anims.play('walk', true);
-            // TODO: add particle following code here for when player moves to the LEFT
-      //      my.vfx.walking.startFollow(my.sprite.player, my.sprite.player.displayWidth/2-10, my.sprite.player.displayHeight/2-5, false);
-    //    my.vfx.walking.setParticleSpeed(this.PARTICLE_VELOCITY, 0);
-            // Only play smoke effect if touching the ground
-           // if (my.sprite.player.body.blocked.down) {
-           //     my.vfx.walking.start();
-         //   }
+
 
         } else if(cursors.right.isDown) {
             my.sprite.player.setAccelerationX(this.ACCELERATION);
             my.sprite.player.setFlip(true, false);
             my.sprite.player.anims.play('walk', true);
-            // TODO: add particle following code here for when player moves to the RIGHT
-
-        //     my.vfx.walking.startFollow(my.sprite.player, my.sprite.player.displayWidth/2-10, my.sprite.player.displayHeight/2-5, false);
-       //     my.vfx.walking.setParticleSpeed(this.PARTICLE_VELOCITY, 0);
-            // Only play smoke effect if touching the ground
-         //   if (my.sprite.player.body.blocked.down) {
-            //    my.vfx.walking.start();
-         //   }
-           
 
         } else {
             // Set acceleration to 0 and have DRAG take over
             my.sprite.player.setAccelerationX(0);
             my.sprite.player.setDragX(this.DRAG);
             my.sprite.player.anims.play('idle');
-            // TODO: have the vfx stop playing
-         //   my.vfx.walking.stop();
+            
+        }
+
+        // Play walking audio if walking on ground
+        if ((cursors.left.isDown || cursors.right.isDown) && my.sprite.player.body.blocked.down) {
+            // Only play walking sounds if not already playing
+            if (!this.isWalkingSoundPlaying) {
+                this.isWalkingSoundPlaying = true;
+                this.currentSoundIndex = 0;
+                this.playNextSound();
+            }
+        } else {
+            if (this.isWalkingSoundPlaying) {
+                this.isWalkingSoundPlaying = false;
+                this.walkSounds.forEach(sound => sound.stop());
+            }
         }
 
         // player jump
@@ -117,17 +216,25 @@ class Platformer extends Phaser.Scene {
             my.sprite.player.anims.play('jump');
         }
         if(my.sprite.player.body.blocked.down && Phaser.Input.Keyboard.JustDown(cursors.up)) {
+            this.sound.play("jumpSound", {volume: 1})
             my.sprite.player.body.setVelocityY(this.JUMP_VELOCITY);
         }
 
         if(Phaser.Input.Keyboard.JustDown(this.rKey)) {
             this.scene.restart();
         }
+
+        // Id player gets hurt from spikes or falling
         if (this.isTouchingSpike() && !this.isRestarting) {
+            this.sound.play("hurtSound", {volume: 1});
             this.isRestarting = true; // Prevents repeated triggering
-            this.time.delayedCall(150, () => {  // Delay in ms (e.g. 500ms = 0.5s)
+            this.time.delayedCall(50, () => {  // Delay in ms (e.g. 500ms = 0.5s)
              this.scene.restart();
         });
+        }
+        if (Phaser.Geom.Rectangle.ContainsPoint(this.deathZone, my.sprite.player)) {
+            this.sound.play("hurtSound", {volume: 1});
+            this.scene.restart(); // or respawn logic
         }
     }
 }

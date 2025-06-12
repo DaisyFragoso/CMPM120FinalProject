@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "platformer-level-1.tmx",
+    "activeFile": "",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
@@ -35,15 +35,16 @@
             "scaleInDock": 1.7272
         },
         "C:/Users/energ/CMPM 120/CMPM120-Game3b-NathanGonzales/assets/L1 Map.tmx": {
-            "scale": 1.2458854166666666,
-            "selectedLayer": 0,
+            "scale": 3,
+            "selectedLayer": 3,
             "viewCenter": {
-                "x": 479.97993394924964,
-                "y": 160.12708498808578
+                "x": 255.16666666666666,
+                "y": 191.66666666666663
             }
         },
         "C:/Users/energ/CMPM 120/CMPM120-Game3b-NathanGonzales/assets/L1 Map.tmx#monochrome_tilemap_packed": {
-            "scaleInDock": 1
+            "scaleInDock": 1,
+            "scaleInEditor": 1
         },
         "C:/Users/energ/CMPM 120/CMPM120-Game3b-NathanGonzales/assets/L1 Map.tmx#monochrome_tilemap_transparent_packed": {
             "scaleInDock": 1,
@@ -61,23 +62,28 @@
             "scaleInDock": 1
         },
         "platformer-level-1.tmx": {
-            "scale": 0.33,
-            "selectedLayer": 0,
+            "expandedObjectLayers": [
+                3,
+                4
+            ],
+            "scale": 0.125,
+            "selectedLayer": 4,
             "viewCenter": {
-                "x": 454.54545454545473,
-                "y": 883.3333333333333
+                "x": 4700,
+                "y": 2688
             }
         },
         "platformer-level-1.tmx#kenny_sheet_ice_tilemap_packed": {
             "dynamicWrapping": false,
-            "scaleInDock": 0.5
+            "scaleInDock": 0.33,
+            "scaleInEditor": 1
         },
         "platformer-level-1.tmx#kenny_sheet_mine_tilemap_packed": {
-            "scaleInDock": 1,
+            "scaleInDock": 0.5,
             "scaleInEditor": 1
         },
         "platformer-level-1.tmx#kenny_tilemap_packed": {
-            "scaleInDock": 0.75,
+            "scaleInDock": 0.33,
             "scaleInEditor": 1
         }
     },
@@ -90,13 +96,14 @@
     "map.tileWidth": 70,
     "map.width": 130,
     "openFiles": [
-        "platformer-level-1.tmx"
+        "platformer-level-1.tmx",
+        "C:/Users/energ/CMPM 120/CMPM120-Game3b-NathanGonzales/assets/L1 Map.tmx"
     ],
     "project": "Lava Breakout.tiled-project",
     "property.type": "bool",
     "recentFiles": [
-        "C:/Users/energ/CMPM 120/CMPM120-Game3b-NathanGonzales/assets/L1 Map.tmx",
         "platformer-level-1.tmx",
+        "C:/Users/energ/CMPM 120/CMPM120-Game3b-NathanGonzales/assets/L1 Map.tmx",
         "L1.tmx",
         "C:/Users/daisy/Desktop/CMPM120/Project 3/assets/platformer-level-1.tmx",
         "C:/Users/daisy/Desktop/CMPM120/L20/ParticlePractice/assets/platformer-level-1.tmx"
