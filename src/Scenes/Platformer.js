@@ -14,6 +14,15 @@ class Platformer extends Phaser.Scene {
          this.SCALE = 1.0;
 
          this.isRestarting = false;
+
+        //heart system
+        this.maxHealth = 3;
+        this.health = this.maxHealth;
+        this.hearts = []; // to track heart sprites
+        this.lastDamagedAt = 0;
+        this.damageCooldown = 1000;
+
+
     }
 
     create(){
@@ -126,6 +135,39 @@ class Platformer extends Phaser.Scene {
         // Enable collision handling
         this.physics.add.collider(my.sprite.player, this.groundLayer);
 
+        //health system
+        this.anims.create({ 
+            key:'lose_first_half', 
+            frames: this.anims.generateFrameNumbers('heart', {start: 0, end: 2}),
+            frameRate: 10 
+        });
+
+        this.anims.create({ 
+            key:'lose_second_half', 
+            frames: this.anims.generateFrameNumbers('heart', {start: 2, end: 4}),
+            frameRate: 10 
+        });
+
+        const numberOfHearts = this.maxHealth;
+        const heartSpacing = 120;
+        const heartScale = 15;
+        const padding = 300; 
+        const xpadding = 260;
+
+        const cam = this.cameras.main;
+        const rightEdge = cam.width - (cam.width) - xpadding;
+        const topEdge = cam.height - cam.height - padding;
+
+        for (let i = 0; i < numberOfHearts; i++) {
+        const x = rightEdge - i * heartSpacing;
+        const y = topEdge;
+        const heart = this.add.sprite(x+150 , topEdge, 'heart', 0)
+            .setScale(heartScale)
+            .setOrigin(1, 0)           
+            .setScrollFactor(0);       // so it stays fixed on screen
+        this.hearts.push(heart);
+        }
+
           // set up Phaser-provided cursor key input
         cursors = this.input.keyboard.createCursorKeys();
 
@@ -171,6 +213,45 @@ class Platformer extends Phaser.Scene {
         let tile = this.groundLayer.getTileAtWorldXY(player.x, player.y, true);
         return tile && tile.properties.spikes === true;
     }
+   
+    gameOver(){
+        this.isRestarting = true;
+        this.time.delayedCall(500, () => { 
+           // this.sound.play("hurtSound", {volume: 1});
+            this.scene.restart();
+        });
+    }
+
+    takeDamage(amount) {
+        const now = this.time.now;
+        if (this.isRestarting || now - this.lastDamagedAt < this.damageCooldown) {
+            return;
+        }
+
+        this.lastDamagedAt = now;
+        this.health -= amount;
+
+        if (this.health <= 0) {
+            this.sound.play("hurtSound", {volume: 1});
+            this.health = 0;
+            this.updateHearts();
+            this.gameOver();
+        } else {
+            this.updateHearts();
+        }
+    }
+
+    updateHearts() {
+        this.sound.play("hurtSound", {volume: 1});
+        for (let i = 0; i < this.hearts.length; i++) {
+            if (i < this.health) {
+                this.hearts[i].setFrame(0); // full
+            } else {
+                this.hearts[i].setFrame(4); // empty
+            }
+        }
+    }
+
 
     update() {
         // Player Movement 
@@ -220,15 +301,15 @@ class Platformer extends Phaser.Scene {
 
         // Id player gets hurt from spikes or falling
         if (this.isTouchingSpike() && !this.isRestarting) {
-            this.sound.play("hurtSound", {volume: 1});
-            this.isRestarting = true; // Prevents repeated triggering
-            this.time.delayedCall(50, () => {  // Delay in ms (e.g. 500ms = 0.5s)
-             this.scene.restart();
-        });
+         //   this.sound.play("hurtSound", {volume: 1});
+            this.takeDamage(1);
         }
         if (Phaser.Geom.Rectangle.ContainsPoint(this.deathZone, my.sprite.player)) {
-            this.sound.play("hurtSound", {volume: 1});
-            this.scene.restart(); // or respawn logic
+          //  this.sound.play("hurtSound", {volume: 1});
+           // this.scene.restart(); // or respawn logic
+            this.takeDamage(3);
+          //  this.takeDamage(1);
+          //  this.takeDamage(1);
         }
     }
 }
