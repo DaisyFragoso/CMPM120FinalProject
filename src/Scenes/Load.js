@@ -4,6 +4,8 @@ class Load extends Phaser.Scene {
     }
 
     preload(){
+        this.load.scenePlugin('AnimatedTiles', './lib/AnimatedTiles.js', 'animatedTiles', 'animatedTiles');
+
         this.load.setPath("./assets/");
 
         // 1.load characters 
@@ -48,6 +50,8 @@ class Load extends Phaser.Scene {
             frameWidth: 7,
             frameHeight: 7,
         });
+
+        //8 load sceneplugin
         
         // Oooh, fancy. A multi atlas is a texture atlas which has the textures spread
         // across multiple png files, so as to keep their size small for use with

@@ -21,7 +21,17 @@ let config = {
     },
     width: 1000,
     height: 700,
-    scene: [Load, Platformer, WinScene, TitleScene]
+    scene: [Load, Platformer, WinScene, TitleScene],
+
+    plugins: {
+        scene: [
+            {
+                key: 'AnimatedTiles',    // this is how you'll access it in the scene
+                plugin: AnimatedTiles,   // must match what's loaded in <script>
+                mapping: 'animatedTiles' // this.animatedTiles will be available
+            }
+        ]
+    }
 }
 
 var cursors;

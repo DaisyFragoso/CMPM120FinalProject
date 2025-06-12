@@ -29,6 +29,14 @@ class TitleScene extends Phaser.Scene {
         });
         this.myText1.setOrigin(0.5, 0.5);
 
+        this.myText1.setOrigin(0.5, 0.5);
+        this.myText1 = this.add.text(this.cameras.main.width / 2, 500, 'Credits: Daisy Fragoso and Nathan Gonzales', {
+            fontSize: '35px',
+            fill: '#ffffff',
+            fontFamily: 'Arial'
+        });
+        this.myText1.setOrigin(0.5, 0.5);
+
         // Key to start the game over
         this.input.keyboard.once('keydown-R', () => {
             this.scene.start("platformerScene");

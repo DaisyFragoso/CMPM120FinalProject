@@ -26,10 +26,12 @@ class Platformer extends Phaser.Scene {
     }
 
     create(){
-
+        
 
          //create new tilemap game object: 16,  16 pixel , 120 tiles wide, 40 tiles tall
         this.map = this.add.tilemap("platformer-level-1", 70, 70, 120, 40);
+        // animatedTiles
+        this.animatedTiles.init(this.map);
 
         // Adding background
         const bg = this.add.image(0, 0, 'icyBg').setOrigin(0, 0);
