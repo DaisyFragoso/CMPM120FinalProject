@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "platformer-level-1.tmj",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
@@ -12,11 +12,11 @@
             "scaleInEditor": 1
         },
         "platformer-level-1.tmj": {
-            "scale": 0.08,
-            "selectedLayer": 4,
+            "scale": 0.207,
+            "selectedLayer": 5,
             "viewCenter": {
-                "x": 4200,
-                "y": 2731.25
+                "x": 3478.2608695652175,
+                "y": 1765.7004830917876
             }
         },
         "platformer-level-1.tmj#kenny_sheet_ice_tilemap_packed": {
@@ -26,7 +26,7 @@
             "scaleInDock": 0.3623
         },
         "platformer-level-1.tmj#kenny_tilemap_packed": {
-            "scaleInDock": 0.5101
+            "scaleInDock": 0.3079
         },
         "platformer-level-1.tmx": {
             "scale": 0.45,
@@ -87,13 +87,14 @@
     "map.tileWidth": 70,
     "map.width": 120,
     "openFiles": [
+        "platformer-level-1.tmj"
     ],
     "project": "platformer-level-2.tiled-project",
     "property.type": "bool",
     "recentFiles": [
+        "platformer-level-1.tmj",
         "platformer-level-2.tmj",
         "platformer-level-1.tmx",
-        "platformer-level-1.tmj",
         "platformer-level-2.tmx"
     ],
     "tileset.embedInMap": true,

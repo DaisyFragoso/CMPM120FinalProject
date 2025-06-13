@@ -23,7 +23,6 @@ class PlatformerLevelTwo extends Phaser.Scene {
         this.lastDamagedAt = 0;
         this.damageCooldown = 1000;
 
-
     }
 
     create(){
@@ -174,6 +173,11 @@ class PlatformerLevelTwo extends Phaser.Scene {
             return new Phaser.Geom.Rectangle(obj.x, obj.y, obj.width, obj.height);
         });
 
+        //water zone
+        this.waterZones = this.map.getObjectLayer("WaterZones").objects.filter(obj => obj.name === "Water");
+this.waterZones = this.waterZones.map(obj => {
+    return new Phaser.Geom.Rectangle(obj.x, obj.y, obj.width, obj.height);
+});
 
        // Ends level
         this.physics.add.overlap(my.sprite.player, this.exitSign, (player, exitSign) => {
@@ -237,6 +241,9 @@ class PlatformerLevelTwo extends Phaser.Scene {
         }
     }
 
+    isInWater() {
+    return this.waterZones.some(zone => Phaser.Geom.Rectangle.ContainsPoint(zone, my.sprite.player));
+}
 
     update() {
         // Player Movement 
@@ -294,6 +301,27 @@ class PlatformerLevelTwo extends Phaser.Scene {
         if (this.isTouchingSpike() && !this.isRestarting) {
          //   this.sound.play("hurtSound", {volume: 1});
             this.takeDamage(1);
+        }
+
+        //water thing
+        if (this.isInWater()) {
+            my.sprite.player.setGravityY(-300);  // pulls upward
+            my.sprite.player.setDrag(300, 300);  // slow movement
+            my.sprite.player.setMaxVelocity(200, 200); // limit swimming speed
+
+            // Optional: use up/down keys for swimming control
+            if (cursors.up.isDown) {
+                my.sprite.player.setVelocityY(-150);
+            } else if (cursors.down.isDown) {
+                my.sprite.player.setVelocityY(150);
+            }
+
+        } else {
+            // Back to normal platformer physics
+            my.sprite.player.setGravityY(0); // clear custom gravity
+            this.physics.world.gravity.y = 1500;
+            my.sprite.player.setDragX(this.DRAG);
+            my.sprite.player.setMaxVelocity(600, 900);
         }
     }
 }
