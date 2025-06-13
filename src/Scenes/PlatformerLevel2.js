@@ -6,6 +6,9 @@ class PlatformerLevelTwo extends Phaser.Scene {
 
     init(){
 
+        // Stops all currently playing sounds
+        this.sound.stopAll();
+
          this.ACCELERATION = 600;
          this.DRAG = 500;    // DRAG < ACCELERATION = icy slide
          this.physics.world.gravity.y = 1500;
