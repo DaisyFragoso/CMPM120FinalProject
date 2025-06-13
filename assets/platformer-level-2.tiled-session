@@ -1,0 +1,104 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "",
+    "expandedProjectPaths": [
+    ],
+    "file.lastUsedOpenFilter": "All Files (*)",
+    "fileStates": {
+        "": {
+            "scaleInEditor": 1
+        },
+        "platformer-level-1.tmj": {
+            "scale": 0.08,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 4200,
+                "y": 2731.25
+            }
+        },
+        "platformer-level-1.tmj#kenny_sheet_ice_tilemap_packed": {
+            "scaleInDock": 0.2512
+        },
+        "platformer-level-1.tmj#kenny_sheet_mine_tilemap_packed": {
+            "scaleInDock": 0.3623
+        },
+        "platformer-level-1.tmj#kenny_tilemap_packed": {
+            "scaleInDock": 0.5101
+        },
+        "platformer-level-1.tmx": {
+            "scale": 0.45,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 6935.555555555556,
+                "y": 1483.3333333333335
+            }
+        },
+        "platformer-level-1.tmx#kenny_sheet_ice_tilemap_packed": {
+            "scaleInDock": 0.5974
+        },
+        "platformer-level-1.tmx#kenny_sheet_mine_tilemap_packed": {
+            "scaleInDock": 1
+        },
+        "platformer-level-1.tmx#kenny_tilemap_packed": {
+            "scaleInDock": 1
+        },
+        "platformer-level-2.tmj": {
+            "scale": 0.35,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1151.4285714285716,
+                "y": 2141.4285714285716
+            }
+        },
+        "platformer-level-2.tmj#kenny_sheet_ice_tilemap_packed": {
+            "scaleInDock": 0.4366
+        },
+        "platformer-level-2.tmj#kenny_sheet_mine_tilemap_packed": {
+            "scaleInDock": 0.8072
+        },
+        "platformer-level-2.tmj#kenny_tilemap_packed": {
+            "scaleInDock": 0.4327
+        },
+        "platformer-level-2.tmx": {
+            "scale": 2.56,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 8365.0390625,
+                "y": 1154.296875
+            }
+        },
+        "platformer-level-2.tmx#kenny_sheet_ice_tilemap_packed": {
+            "scaleInDock": 0.4366
+        },
+        "platformer-level-2.tmx#kenny_sheet_mine_tilemap_packed": {
+            "scaleInDock": 1
+        },
+        "platformer-level-2.tmx#kenny_tilemap_packed": {
+            "scaleInDock": 0.2986
+        }
+    },
+    "last.imagePath": "/Users/daisy/Desktop/Github/CMPM120FinalProject/assets",
+    "map.height": 40,
+    "map.lastUsedFormat": "json",
+    "map.tileHeight": 70,
+    "map.tileWidth": 70,
+    "map.width": 120,
+    "openFiles": [
+    ],
+    "project": "platformer-level-2.tiled-project",
+    "property.type": "bool",
+    "recentFiles": [
+        "platformer-level-2.tmj",
+        "platformer-level-1.tmx",
+        "platformer-level-1.tmj",
+        "platformer-level-2.tmx"
+    ],
+    "tileset.embedInMap": true,
+    "tileset.tileSize": {
+        "height": 70,
+        "width": 70
+    }
+}

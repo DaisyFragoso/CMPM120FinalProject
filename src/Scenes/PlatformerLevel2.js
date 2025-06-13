@@ -1,6 +1,7 @@
-class Platformer extends Phaser.Scene {
+class PlatformerLevelTwo extends Phaser.Scene {
     constructor() {
-        super("platformerScene");
+        super('platformerScene2');
+        console.log('in here')
     }
 
     init(){
@@ -21,22 +22,20 @@ class Platformer extends Phaser.Scene {
         this.hearts = []; // to track heart sprites
         this.lastDamagedAt = 0;
         this.damageCooldown = 1000;
-        
-        //bonus level key check
-        this.collectedKey = false;
+
 
     }
 
     create(){
-        
+        console.log("HEREE")
 
          //create new tilemap game object: 16,  16 pixel , 120 tiles wide, 40 tiles tall
-        this.map = this.add.tilemap("platformer-level-1", 70, 70, 120, 40);
+        this.map = this.add.tilemap("platformer-level-2", 70, 70, 120, 40);
         // animatedTiles
         this.animatedTiles.init(this.map);
 
         // Adding background
-        const bg = this.add.image(0, 0, 'icyBg').setOrigin(0, 0);
+        const bg = this.add.image(0, 0, 'mine').setOrigin(0, 0);
         bg.setDisplaySize(this.map.widthInPixels, this.map.heightInPixels); // match to tilemap
         bg.setScrollFactor(1); // background moves with world
 
@@ -95,32 +94,11 @@ class Platformer extends Phaser.Scene {
         // Ensure player spawns in right area
         this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
 
-        // Finding torches in the "Torches" Layer
-        this.coins = this.map.createFromObjects("Torches", {
-            name: "Torch",
-            key: "tilemap_sheet",
-            frame: 1
-        });
-
-        // Creating animation for torches
-        this.anims.create({
-            key: 'torchAnim', // Animation key
-            frames: [
-                    { key: 'tilemap_sheet', frame: 152 },
-                    { key: 'tilemap_sheet', frame: 153 },
-                ],
-            frameRate: 6,  // Higher is faster
-            repeat: -1      // Loop the animation indefinitely
-        });
-
-        // Playing animation for Torches
-        this.anims.play('torchAnim', this.coins);
-
         // Finding Exit Sign in the "Exit" Layer
         this.exitSign = this.map.createFromObjects("Exit", {
             name: "Exit Sign",
             key: "tilemap_sheet",
-            frame: 114
+            frame: 56
         });
 
         //turn on arcade physics 
@@ -128,7 +106,6 @@ class Platformer extends Phaser.Scene {
             return tile.properties.spikes == true;
         });
         this.physics.world.enable(this.exitSign, Phaser.Physics.Arcade.STATIC_BODY);
-
 
         // set up player avatar
         my.sprite.player = this.physics.add.sprite(250, 1700, "platformer_characters", "tile_0000.png").setScale(5)
@@ -188,40 +165,28 @@ class Platformer extends Phaser.Scene {
         this.cameras.main.setDeadzone(50, 50);
         this.cameras.main.setZoom(0.5);
 
-        // Death Zone setup
-        const deathRectangle = this.map.getObjectLayer('DeathZone').objects[0];
-        // Create a Phaser rectangle from it
-        this.deathZone = new Phaser.Geom.Rectangle(
-            deathRectangle.x, 
-            deathRectangle.y, 
-            deathRectangle.width, 
-            deathRectangle.height
-        );
+        //death zones
+        this.deathZones = [];  // store multiple death zones
+        const deathObjects = this.map.getObjectLayer('DeathZone').objects;
 
-        // Ends level
-        this.physics.add.overlap(my.sprite.player, this.exitSign, () => {
+        // Store all death rectangles in an array
+        this.deathZones = deathObjects.map(obj => {
+            return new Phaser.Geom.Rectangle(obj.x, obj.y, obj.width, obj.height);
+        });
+
+
+       // Ends level
+        this.physics.add.overlap(my.sprite.player, this.exitSign, (player, exitSign) => {
             if (this.isWalkingSoundPlaying) {
                 this.isWalkingSoundPlaying = false;
+
+                // Stop all walking sounds
                 this.walkSounds.forEach(sound => sound.stop());
-            }
 
-            if (this.collectedKey) {
-                this.scene.start("platformerScene2"); // bonus level
-            } else {
-                this.scene.start("endScene"); // normal end
             }
+            this.scene.start("endScene");
         });
 
-        // Tiled object data  KEY (bonus level)
-        let keyData = this.map.getObjectLayer("Keys").objects.find(obj => obj.name === "sword");
-        this.keyObject = this.physics.add.staticSprite(keyData.x, keyData.y, "tilemap_mine_sheet", 10);
-
-        // Overlap check for the key
-        this.physics.add.overlap(my.sprite.player, this.keyObject, () => {
-            console.log('picked up sword');
-            this.collectedKey = true;
-            this.keyObject.destroy();
-        });
     }
 
     // Helper function if player is touching spikes
@@ -240,7 +205,7 @@ class Platformer extends Phaser.Scene {
         });
     }
 
-    // Helper function if player takes damage
+    //Helper function if player takes damage
     takeDamage(amount) {
         const now = this.time.now;
         if (this.isRestarting || now - this.lastDamagedAt < this.damageCooldown) {
@@ -319,13 +284,16 @@ class Platformer extends Phaser.Scene {
             my.sprite.player.body.setVelocityY(this.JUMP_VELOCITY);
         }
 
+        this.deathZones.forEach(zone => {
+            if (Phaser.Geom.Rectangle.Contains(zone, my.sprite.player.x, my.sprite.player.y)) {
+                this.scene.restart();;  // Or whatever your death function is
+            }
+        });
+
         // Id player gets hurt from spikes or falling
         if (this.isTouchingSpike() && !this.isRestarting) {
          //   this.sound.play("hurtSound", {volume: 1});
             this.takeDamage(1);
-        }
-        if (Phaser.Geom.Rectangle.ContainsPoint(this.deathZone, my.sprite.player)) {
-            this.takeDamage(3);
         }
     }
 }

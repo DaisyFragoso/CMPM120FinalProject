@@ -21,7 +21,7 @@ let config = {
     },
     width: 1000,
     height: 700,
-    scene: [Load, Platformer, WinScene, TitleScene],
+    scene: [Load, Platformer, PlatformerLevelTwo, WinScene, TitleScene],
 
     plugins: {
         scene: [
